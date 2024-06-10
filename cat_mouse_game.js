@@ -1,5 +1,8 @@
-function loadGame(array=[]) {
-    return array
+class CatNMouse {
+    loadGame(grid=["cat", "mouse"]) {
+        this.gameGrid = grid
+        this.gameLoaded = true
+}
 }
 
-module.exports = loadGame
+module.exports = CatNMouse

@@ -2,7 +2,7 @@
 // `npm install --save-dev jest` (can use -D instead)
 // If you'd used `npm init -y`, don't forget to change "test" to equal "jest" in package.json
 
-const loadGame = require("../cat_mouse_game.js")
+const game = require("../cat_mouse_game.js")
 
 // Make a game that takes a text input from the user, "w", "a", "s", or "d" to move a mouse around an array printed in the terminal.
 // A cat will try to catch the mouse in as few a turns as possible, the mouse must get to the hole: "O".
@@ -11,7 +11,21 @@ const loadGame = require("../cat_mouse_game.js")
     // - Define the cat and mouse movement per turn, or defaults will be used.
 
 describe("Game loading tests", () => {
-    test("The game should check any input values", () => {
-        expect(Array.isArray(loadGame())).toBe(true)
+    let instance = new game()
+    instance.loadGame()
+
+    test("Successfully loading the game should return true", () => {
+        expect(instance.gameLoaded).toBeTruthy()
+    })
+    test("It should have a grid (array) to play on", () => {
+        expect(Array.isArray(instance.gameGrid)).toBeTruthy()
+    })
+    test("The grid should contain exactly 1 \"cat\"", () => {
+        let testGrid = instance.gameGrid.filter((x) => x === "cat")
+        expect(testGrid.length).toBe(1)
+    })
+    test("The grid should contain exactly 1 \"mouse\"", () => {
+        let testGrid = instance.gameGrid.filter((x) => x === "mouse")
+        expect(testGrid.length).toBe(1)
     })
 })
