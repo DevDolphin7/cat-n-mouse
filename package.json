@@ -1,0 +1,29 @@
+{
+  "name": "cat-n-mouse",
+  "version": "1.0.0",
+  "description": "A simple terminal grid based game: can the mouse reach the hole before it's caught by the cat?",
+  "main": "cat_mouse_game.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevDolphin7/cat-n-mouse.git"
+  },
+  "keywords": [
+    "cat",
+    "mouse",
+    "game",
+    "terminal",
+    "TDD"
+  ],
+  "author": "DevDolphin7",
+  "license": "SEE LICENSE IN LICENSE.license",
+  "bugs": {
+    "url": "https://github.com/DevDolphin7/cat-n-mouse/issues"
+  },
+  "homepage": "https://github.com/DevDolphin7/cat-n-mouse#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
