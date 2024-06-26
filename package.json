@@ -25,5 +25,8 @@
   "homepage": "https://github.com/DevDolphin7/cat-n-mouse#readme",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.23"
   }
 }
