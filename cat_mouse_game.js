@@ -2,29 +2,41 @@ const inquirer = require("inquirer");
 
 class CatNMouse {
     loadGame(
-        grid = [
-            [" cat ", "  x  ", "  O  ", "mouse"],
-            ["  x  ", "  x  ", "  x  ", "  x  "],
-        ],
+        grid = 4,
         catMovement = 2,
         mouseMovement = 1
     ) {
-        this.gameGrid = grid;
-
         this.cat = new Creature(catMovement);
         this.mouse = new Creature(mouseMovement);
+        this.holeLocation = { row: 0, column: 2 };
+
+        this.drawGrid(grid);
 
         console.log("Welcome to cat catcher!\n");
         console.log(
-            `Cat movement: ${this.catMovement}, mouse movement: ${this.mouseMovement}\n`
+            `Cat movement: ${this.cat.movement}, mouse movement: ${this.mouse.movement}\n`
         );
-        console.log(this.gameGrid);
+        console.log(this.grid);
+    }
+
+    drawGrid(newGridSize = false) {
+        if (newGridSize) {
+            this.grid = [];
+            console.log("Hello!", newGridSize)
+            for (let i = 0; i < newGridSize; i++) {
+                this.grid.push(Array(newGridSize).fill("  x  "));
+            }
+        }
+        
+        this.grid[this.cat.location.row][this.cat.location.column] = " cat "
+        this.grid[this.mouse.location.row][this.mouse.location.column] = "mouse"
+        this.grid[this.holeLocation.row][this.holeLocation.column] = "  O  "
     }
 
     async playGame() {
         await this.getUserMove();
-        // console.log("move: " + this.userMove);
         this.checkMovement();
+        this.checkWinLoseConditions();
     }
 
     async getUserMove() {
@@ -48,8 +60,11 @@ class CatNMouse {
     checkMovement() {
         switch (true) {
             case /s/i.test(this.userMove):
-                for (let i=1; i<=this.mouse.movement; i++) {
-                    this.checkLoseCondition()
+                for (let i = 1; i <= this.mouse.movement; i++) {
+                    this.newMouseLocation = {
+                        row: this.mouse.location.row + this.mouse.movement,
+                        column: this.mouse.location.column,
+                    };
                 }
                 break;
             case /w/i.test(this.userMove):
@@ -63,15 +78,37 @@ class CatNMouse {
                 break;
         }
     }
+
+    checkWinLoseConditions() {
+        const objectComparitor = (object1, object2) => {
+            const { row, column } = object1;
+            const matchingRow = row === object2.row;
+            const matchingColumn = column === object2.column;
+            return matchingRow && matchingColumn;
+        };
+
+        if (objectComparitor(this.newMouseLocation, this.cat.location)) {
+            console.log("You lose");
+        } else if (objectComparitor(this.newMouseLocation, this.holeLocation)) {
+            return;
+        } else {
+            this.mouse.location = this.newMouseLocation;
+        }
+    }
+}
+
+class GridItem {
+    constructor(gridSize = 4){
+
+    }
 }
 
 class Creature {
-    constructor(movement, gridSize = 4) {
+    constructor(movement) {
         this.movement = movement;
-
+        
         const getRandomInt = (max) => Math.floor(Math.random() * max);
-        this.row = getRandomInt(gridSize);
-        this.col = getRandomInt(gridSize);
+        this.location = { row: getRandomInt(gridSize), column: getRandomInt(gridSize) };
     }
 }
 
