@@ -98,7 +98,7 @@ class CatNMouse {
 }
 
 class Creature {
-    constructor(movement) {
+    constructor(movement, gridSize=4) {
         this.movement = movement;
         
         const getRandomInt = (max) => Math.floor(Math.random() * max);
