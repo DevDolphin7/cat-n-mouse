@@ -97,12 +97,6 @@ class CatNMouse {
     }
 }
 
-class GridItem {
-    constructor(gridSize = 4){
-
-    }
-}
-
 class Creature {
     constructor(movement) {
         this.movement = movement;
@@ -112,8 +106,8 @@ class Creature {
     }
 }
 
-let instance = new CatNMouse();
-instance.loadGame();
-instance.playGame();
+let catNMouse = new CatNMouse();
+catNMouse.loadGame();
+catNMouse.playGame();
 
 module.exports = CatNMouse;
